@@ -1,0 +1,12 @@
+{
+  "name": "restaurant-test-db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "node ./seed.js"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.5"
+  }
+}
