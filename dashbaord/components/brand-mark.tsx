@@ -1,4 +1,4 @@
-type BrandMarkProps = {
+export type BrandMarkProps = {
   compact?: boolean;
   inverse?: boolean;
   label?: string;

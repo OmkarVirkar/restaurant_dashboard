@@ -3,24 +3,26 @@
 import { createPortal } from "react-dom";
 import { useState, type FormEvent } from "react";
 
+import type { LoginContent } from "@/types/login";
 import { FormField } from "./ui/form-field";
 
-type RequestAccessContent = {
-  invite: string;
-  inviteAction: string;
-  requestAccessTitle: string;
-  requestAccessText: string;
-  fullName: string;
-  email: string;
-  requestReason: string;
-  placeholderName: string;
-  placeholderEmail: string;
-  placeholderReason: string;
-  sendRequest: string;
-  requestSent: string;
-  requestSentText: string;
-  close: string;
-};
+export type RequestAccessContent = Pick<
+  LoginContent,
+  | "invite"
+  | "inviteAction"
+  | "requestAccessTitle"
+  | "requestAccessText"
+  | "fullName"
+  | "email"
+  | "requestReason"
+  | "placeholderName"
+  | "placeholderEmail"
+  | "placeholderReason"
+  | "sendRequest"
+  | "requestSent"
+  | "requestSentText"
+  | "close"
+>;
 
 type RequestAccessModalProps = {
   content: RequestAccessContent;

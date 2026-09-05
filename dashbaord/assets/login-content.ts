@@ -1,4 +1,6 @@
-export const translations = {
+import type { Locale, LoginContent } from "@/types/login";
+
+export const translations: Record<Locale, LoginContent> = {
   en: {
     restaurant: "Restaurant",
     welcome: "Welcome",
@@ -57,6 +59,6 @@ export const translations = {
     placeholderEmail: "name@restaurant.com",
     placeholderPassword: "अपना पासवर्ड लिखें",
   },
-} as const;
+};
 
-export type Locale = keyof typeof translations;
+export type { Locale, LoginContent } from "@/types/login";

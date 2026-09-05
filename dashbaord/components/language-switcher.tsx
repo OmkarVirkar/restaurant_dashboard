@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { Locale } from "@/assets/login-content";
+import type { Locale } from "@/types/login";
 
 const options: Locale[] = ["en", "hi"];
 

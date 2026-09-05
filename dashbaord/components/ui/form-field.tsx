@@ -1,6 +1,6 @@
-type IconName = "mail" | "lock" | "user";
+export type IconName = "mail" | "lock" | "user";
 
-type FormFieldProps = {
+export type FormFieldProps = {
   id: string;
   type: "email" | "password" | "text";
   label: string;

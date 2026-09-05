@@ -1,0 +1,31 @@
+export type Locale = "en" | "hi";
+
+export type LoginContent = {
+  restaurant: string;
+  welcome: string;
+  heroTitle: string;
+  heroText: string;
+  dashboard: string;
+  admin: string;
+  signIn: string;
+  manage: string;
+  email: string;
+  password: string;
+  remember: string;
+  forgot: string;
+  submit: string;
+  invite: string;
+  inviteAction: string;
+  requestAccessTitle: string;
+  requestAccessText: string;
+  fullName: string;
+  requestReason: string;
+  placeholderName: string;
+  placeholderReason: string;
+  sendRequest: string;
+  requestSent: string;
+  requestSentText: string;
+  close: string;
+  placeholderEmail: string;
+  placeholderPassword: string;
+};

@@ -1,11 +1,12 @@
-import { translations, type Locale } from "@/assets/login-content";
+import { translations } from "@/assets/login-content";
+import type { Locale } from "@/types/login";
 
 import { BrandMark } from "./brand-mark";
 import { LanguageSwitcher } from "./language-switcher";
 import { RequestAccessModal } from "./request-access-modal";
 import { FormField } from "./ui/form-field";
 
-type RestaurantLoginProps = {
+export type RestaurantLoginProps = {
   locale?: Locale;
 };
 
