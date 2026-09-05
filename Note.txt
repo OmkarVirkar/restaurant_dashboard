@@ -1,0 +1,3 @@
+# Test Credentials
+Username: admin@restaurant.com 
+Password: Adm!n-rNYbKh1d--JenyVW

@@ -61,7 +61,7 @@ export function DashboardShell({ initialLocale }: DashboardShellProps) {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,_#fff7ed_0%,_#fffaf5_42%,_#f5f5f4_100%)] text-stone-900">
-      <div className="mx-auto flex min-h-screen max-w-[1600px]">
+      <div className="flex min-h-screen w-full">
         <aside className="hidden w-72 shrink-0 flex-col border-r border-amber-200/70 bg-[#1b120a] p-7 text-white lg:flex">
           <BrandMark inverse label={content.restaurantName} />
           <nav className="mt-16 space-y-2" aria-label={content.dashboard}>
