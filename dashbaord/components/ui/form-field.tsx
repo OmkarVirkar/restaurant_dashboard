@@ -2,6 +2,7 @@ export type IconName = "mail" | "lock" | "user";
 
 export type FormFieldProps = {
   id: string;
+  name?: string;
   type: "email" | "password" | "text";
   label: string;
   placeholder: string;
@@ -51,7 +52,7 @@ function Icon({ name }: { name: IconName }) {
   );
 }
 
-export function FormField({ id, type, label, placeholder, icon, required = false }: FormFieldProps) {
+export function FormField({ id, name, type, label, placeholder, icon, required = false }: FormFieldProps) {
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-medium text-stone-700">
@@ -61,6 +62,7 @@ export function FormField({ id, type, label, placeholder, icon, required = false
         <Icon name={icon} />
         <input
           id={id}
+          name={name ?? id}
           type={type}
           required={required}
           placeholder={placeholder}

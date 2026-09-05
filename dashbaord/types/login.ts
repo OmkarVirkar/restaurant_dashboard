@@ -28,4 +28,6 @@ export type LoginContent = {
   close: string;
   placeholderEmail: string;
   placeholderPassword: string;
+  loginError: string;
+  signingIn: string;
 };

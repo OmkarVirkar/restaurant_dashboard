@@ -4,7 +4,7 @@ import type { Locale } from "@/types/login";
 import { BrandMark } from "./brand-mark";
 import { LanguageSwitcher } from "./language-switcher";
 import { RequestAccessModal } from "./request-access-modal";
-import { FormField } from "./ui/form-field";
+import { LoginForm } from "./login-form";
 
 export type RestaurantLoginProps = {
   locale?: Locale;
@@ -56,48 +56,7 @@ export function RestaurantLogin({ locale = "en" }: RestaurantLoginProps) {
               <h2 className="text-3xl font-semibold tracking-tight text-stone-900">{t.manage}</h2>
             </div>
 
-            <form className="space-y-5">
-              <FormField
-                id="email"
-                type="email"
-                label={t.email}
-                placeholder={t.placeholderEmail}
-                icon="mail"
-              />
-              <FormField
-                id="password"
-                type="password"
-                label={t.password}
-                placeholder={t.placeholderPassword}
-                icon="lock"
-              />
-
-              <div className="flex items-center justify-between gap-4 text-sm">
-                <label className="inline-flex items-center gap-2 text-stone-600">
-                  <input type="checkbox" className="h-4 w-4 rounded border-stone-300 text-amber-600 focus:ring-amber-500" />
-                  {t.remember}
-                </label>
-                <a href="#" className="font-medium text-amber-700 transition hover:text-amber-800">
-                  {t.forgot}
-                </a>
-              </div>
-
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-orange-600 px-5 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-500/25 transition hover:translate-y-[-1px] hover:shadow-xl hover:shadow-orange-500/30"
-              >
-                {t.submit}
-                <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
-                  <path
-                    d="M5 12h14m-6-6 6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </form>
+            <LoginForm content={t} locale={locale} />
 
             <RequestAccessModal content={t} />
           </section>

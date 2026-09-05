@@ -1,0 +1,43 @@
+import type { Locale } from "./login";
+
+export type DashboardView = "overview" | "reservations" | "menu" | "sales";
+
+export type DashboardContent = {
+  locale: Locale;
+  restaurantName: string;
+  dashboard: string;
+  overview: string;
+  reservations: string;
+  menu: string;
+  sales: string;
+  welcomeBack: string;
+  serviceSnapshot: string;
+  today: string;
+  covers: string;
+  reservationsToday: string;
+  revenue: string;
+  fromYesterday: string;
+  activeTables: string;
+  ofTotal: string;
+  notifications: string;
+  noNotifications: string;
+  settings: string;
+  profile: string;
+  accountPreferences: string;
+  signOut: string;
+  signedOut: string;
+  signOutDescription: string;
+  confirmSignOut: string;
+  cancel: string;
+  upcomingReservations: string;
+  guest: string;
+  time: string;
+  table: string;
+  status: string;
+  confirmed: string;
+  pending: string;
+  viewAll: string;
+  language: string;
+  loading: string;
+  sessionExpired: string;
+};

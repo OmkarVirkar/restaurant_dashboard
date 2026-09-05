@@ -29,6 +29,8 @@ export const translations: Record<Locale, LoginContent> = {
     close: "Close",
     placeholderEmail: "name@restaurant.com",
     placeholderPassword: "Enter your password",
+    loginError: "We could not sign you in with those details.",
+    signingIn: "Signing in...",
   },
   hi: {
     restaurant: "रेस्टोरेंट",
@@ -58,6 +60,8 @@ export const translations: Record<Locale, LoginContent> = {
     close: "बंद करें",
     placeholderEmail: "name@restaurant.com",
     placeholderPassword: "अपना पासवर्ड लिखें",
+    loginError: "इन विवरणों से साइन इन नहीं हो सका।",
+    signingIn: "साइन इन हो रहा है...",
   },
 };
 

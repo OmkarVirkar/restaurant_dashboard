@@ -1,0 +1,11 @@
+import type { DashboardContent } from "@/types/dashboard";
+import type { Locale } from "@/types/login";
+
+export const dashboardTranslations: Record<Locale, DashboardContent> = {
+  en: {
+    locale: "en", restaurantName: "Saffron & Ember", dashboard: "Dashboard", overview: "Overview", reservations: "Reservations", menu: "Menu", sales: "Sales", welcomeBack: "Welcome back", serviceSnapshot: "Here is your service snapshot.", today: "Today", covers: "Covers", reservationsToday: "Reservations today", revenue: "Revenue", fromYesterday: "from yesterday", activeTables: "Active tables", ofTotal: "of 24 total", notifications: "Notifications", noNotifications: "You are all caught up.", settings: "Settings", profile: "Profile", accountPreferences: "Account preferences", signOut: "Sign out", signedOut: "Sign out?", signOutDescription: "Your local session will be cleared and you will return to the login page.", confirmSignOut: "Sign out", cancel: "Cancel", upcomingReservations: "Upcoming reservations", guest: "Guest", time: "Time", table: "Table", status: "Status", confirmed: "Confirmed", pending: "Pending", viewAll: "View all", language: "Language", loading: "Loading your dashboard...", sessionExpired: "Your session has expired. Please sign in again.",
+  },
+  hi: {
+    locale: "hi", restaurantName: "सैफ्रन एंड एम्बर", dashboard: "डैशबोर्ड", overview: "अवलोकन", reservations: "रिज़र्वेशन", menu: "मेन्यू", sales: "बिक्री", welcomeBack: "आपका स्वागत है", serviceSnapshot: "यह आपकी सेवा की स्थिति है।", today: "आज", covers: "कवर", reservationsToday: "आज के रिज़र्वेशन", revenue: "आय", fromYesterday: "कल से", activeTables: "सक्रिय टेबल", ofTotal: "कुल 24 में से", notifications: "सूचनाएं", noNotifications: "आप पूरी तरह अपडेट हैं।", settings: "सेटिंग्स", profile: "प्रोफाइल", accountPreferences: "अकाउंट प्राथमिकताएं", signOut: "साइन आउट", signedOut: "साइन आउट करें?", signOutDescription: "आपका स्थानीय सेशन हट जाएगा और आप लॉगिन पेज पर लौट जाएंगे।", confirmSignOut: "साइन आउट", cancel: "रद्द करें", upcomingReservations: "आगामी रिज़र्वेशन", guest: "अतिथि", time: "समय", table: "टेबल", status: "स्थिति", confirmed: "पुष्टि की गई", pending: "लंबित", viewAll: "सभी देखें", language: "भाषा", loading: "डैशबोर्ड लोड हो रहा है...", sessionExpired: "आपका सेशन समाप्त हो गया है। कृपया फिर से साइन इन करें।",
+  },
+};
