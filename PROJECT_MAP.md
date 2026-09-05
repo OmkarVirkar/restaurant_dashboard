@@ -27,7 +27,7 @@ The project is split into two independent apps:
 1. Backend service
    - Responsible for business logic, API endpoints, and data persistence.
    - Uses NestJS for application framework and structure.
-   - Includes a DatabaseService for PostgreSQL/PGlite connectivity.
+  - Includes a DatabaseService with adapters for PGlite, PostgreSQL, SQLite, and MongoDB.
    - Current baseline includes HTTP root route and database module setup.
 
 2. Dashboard service
@@ -64,7 +64,7 @@ Files of interest:
   - Configured with `@Global()` decorator for app-wide access.
   
 - `backend/src/database/database.service.ts`
-  - Manages database connections for both PGlite and PostgreSQL.
+  - Selects and manages the configured database adapter.
   - Handles initialization, seeding, and cleanup on module init/destroy.
   - Provides configuration via `database.config.ts`.
   
@@ -80,6 +80,9 @@ Files of interest:
 
 - `backend/test/`
   - App-level e2e and unit tests.
+
+- `.github/skills/`
+  - On-demand AI-assisted coding skills for architecture, databases, security, standards, NestJS, microservices, testing, API design, observability, and delivery operations.
 
 ### Backend conventions
 

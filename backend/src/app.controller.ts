@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { DatabaseService } from './database/database.service';
+import type { DatabaseStatus } from './database/database.adapter';
 
 @Controller()
 export class AppController {
@@ -15,7 +16,7 @@ export class AppController {
   }
 
   @Get('db-status')
-  getDbStatus() {
+  getDbStatus(): Promise<DatabaseStatus> {
     return this.databaseService.getStatus();
   }
 }

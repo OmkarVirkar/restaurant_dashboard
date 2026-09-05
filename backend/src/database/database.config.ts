@@ -30,14 +30,17 @@ export type MongoDbConfig = {
   };
 };
 
-export type DatabaseConfig = PgLiteConfig | PostgresConfig | SqliteConfig | MongoDbConfig;
+export type DatabaseConfig =
+  PgLiteConfig | PostgresConfig | SqliteConfig | MongoDbConfig;
 
 function parseNumber(value: string | undefined, fallback: number): number {
   const parsed = Number(value ?? String(fallback));
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-export function resolveDatabaseConfig(env: NodeJS.ProcessEnv = process.env): DatabaseConfig {
+export function resolveDatabaseConfig(
+  env: NodeJS.ProcessEnv = process.env,
+): DatabaseConfig {
   const requestedClient = (env.DB_CLIENT ?? 'pglite').toLowerCase();
 
   if (requestedClient === 'postgres') {

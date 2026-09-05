@@ -1,8 +1,11 @@
 import { PGlite } from '@electric-sql/pglite';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
 import type { DatabaseAdapter, DatabaseStatus } from './database.adapter';
 import type { PgLiteConfig } from './database.config';
+import {
+  ensureParentDirectory,
+  readSeedSql,
+  resolveDatabasePath,
+} from './database-file.utils';
 
 export class PgliteAdapter implements DatabaseAdapter {
   private client?: PGlite;
@@ -10,27 +13,20 @@ export class PgliteAdapter implements DatabaseAdapter {
   constructor(private readonly config: PgLiteConfig) {}
 
   async connect(): Promise<void> {
-    const resolvedPath = this.config.pglitePath.startsWith('.')
-      ? path.resolve(process.cwd(), this.config.pglitePath)
-      : this.config.pglitePath;
-    const dataDir = path.dirname(resolvedPath);
-
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
+    const resolvedPath = resolveDatabasePath(this.config.pglitePath);
+    ensureParentDirectory(resolvedPath);
 
     this.client = new PGlite(resolvedPath);
     await this.client.query('SELECT 1');
 
-    const seedSqlPath = path.resolve(process.cwd(), 'scripts/restaurant-seed.sql');
-    if (fs.existsSync(seedSqlPath)) {
-      const tableCheck = await this.client.query<{ users_exists: string | null }>(
-        "SELECT to_regclass('public.users') AS users_exists",
-      );
+    const seedSql = readSeedSql();
+    if (seedSql) {
+      const tableCheck = await this.client.query<{
+        users_exists: string | null;
+      }>("SELECT to_regclass('public.users') AS users_exists");
       const hasUsersTable = tableCheck.rows?.[0]?.users_exists !== null;
 
       if (!hasUsersTable) {
-        const seedSql = fs.readFileSync(seedSqlPath, 'utf8');
         await this.client.exec(`${seedSql};`);
       }
     }
