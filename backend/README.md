@@ -53,6 +53,17 @@ MONGODB_DATABASE=restaurant
 
 The `/db-status` endpoint reports the active adapter. New database vendors should implement `DatabaseAdapter` and add one selection case in `DatabaseService`.
 
+## Authentication
+
+The backend exposes:
+
+- `POST /auth/register` - creates a customer account and returns a JWT.
+- `POST /auth/login` - validates credentials and returns a JWT.
+- `POST /auth/refresh` - exchanges a valid refresh token for a new access and refresh token pair.
+- `GET /auth/me` - returns the authenticated user and requires `Authorization: Bearer <token>`.
+
+Passwords are stored as bcrypt hashes. Access and refresh tokens use separate secrets. Set both `JWT_SECRET` and `REFRESH_JWT_SECRET` to different high-entropy values in production; the application rejects production startup when either is missing.
+
 ## Project setup
 
 ```bash

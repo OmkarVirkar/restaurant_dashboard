@@ -1,5 +1,10 @@
 import { MongoClient } from 'mongodb';
-import type { DatabaseAdapter, DatabaseStatus } from './database.adapter';
+import type {
+  CreateDatabaseUser,
+  DatabaseAdapter,
+  DatabaseStatus,
+  DatabaseUser,
+} from './database.adapter';
 import type { MongoDbConfig } from './database.config';
 
 export class MongodbAdapter implements DatabaseAdapter {
@@ -32,4 +37,37 @@ export class MongodbAdapter implements DatabaseAdapter {
       },
     };
   }
+
+  async findUserByEmail(email: string): Promise<DatabaseUser | null> {
+    const user = await this.client
+      .db(this.config.mongodb.database)
+      .collection<DatabaseUserDocument>('users')
+      .findOne({ email });
+
+    return user
+      ? {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          passwordHash: user.passwordHash,
+        }
+      : null;
+  }
+
+  async createUser(user: CreateDatabaseUser): Promise<DatabaseUser> {
+    const collection = this.client
+      .db(this.config.mongodb.database)
+      .collection<DatabaseUserDocument>('users');
+    const lastUser = await collection.findOne({}, { sort: { id: -1 } });
+    const createdUser: DatabaseUserDocument = {
+      ...user,
+      id: (lastUser?.id ?? 0) + 1,
+    };
+
+    await collection.insertOne(createdUser);
+    return createdUser;
+  }
 }
+
+type DatabaseUserDocument = DatabaseUser;

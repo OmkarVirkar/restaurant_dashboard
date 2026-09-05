@@ -1,5 +1,10 @@
 import { DatabaseSync } from 'node:sqlite';
-import type { DatabaseAdapter, DatabaseStatus } from './database.adapter';
+import type {
+  CreateDatabaseUser,
+  DatabaseAdapter,
+  DatabaseStatus,
+  DatabaseUser,
+} from './database.adapter';
 import type { SqliteConfig } from './database.config';
 import {
   ensureParentDirectory,
@@ -30,6 +35,8 @@ export class SqliteAdapter implements DatabaseAdapter {
       this.client.exec(seedSql);
     }
 
+    this.ensurePasswordColumn();
+
     return Promise.resolve();
   }
 
@@ -53,4 +60,53 @@ export class SqliteAdapter implements DatabaseAdapter {
       },
     });
   }
+
+  findUserByEmail(email: string): Promise<DatabaseUser | null> {
+    const user = this.client!.prepare(
+      'SELECT id, name, email, role, password_hash FROM users WHERE email = ? LIMIT 1',
+    ).get(email) as DatabaseUserRow | undefined;
+
+    return Promise.resolve(user ? this.toDatabaseUser(user) : null);
+  }
+
+  createUser(user: CreateDatabaseUser): Promise<DatabaseUser> {
+    const result = this.client!.prepare(
+      'INSERT INTO users (name, email, role, password_hash) VALUES (?, ?, ?, ?)',
+    ).run(user.name, user.email, user.role, user.passwordHash);
+    const createdUser = this.client!.prepare(
+      'SELECT id, name, email, role, password_hash FROM users WHERE id = ?',
+    ).get(Number(result.lastInsertRowid)) as DatabaseUserRow;
+
+    return Promise.resolve(this.toDatabaseUser(createdUser));
+  }
+
+  private ensurePasswordColumn(): void {
+    const columns = this.client!.prepare(
+      'PRAGMA table_info(users)',
+    ).all() as Array<{
+      name: string;
+    }>;
+
+    if (!columns.some(({ name }) => name === 'password_hash')) {
+      this.client!.exec('ALTER TABLE users ADD COLUMN password_hash TEXT');
+    }
+  }
+
+  private toDatabaseUser(user: DatabaseUserRow): DatabaseUser {
+    return {
+      id: Number(user.id),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      passwordHash: user.password_hash,
+    };
+  }
 }
+
+type DatabaseUserRow = {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  password_hash: string | null;
+};

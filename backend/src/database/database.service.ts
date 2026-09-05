@@ -1,5 +1,10 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import type { DatabaseAdapter, DatabaseStatus } from './database.adapter';
+import type {
+  CreateDatabaseUser,
+  DatabaseAdapter,
+  DatabaseStatus,
+  DatabaseUser,
+} from './database.adapter';
 import { createDatabaseAdapter } from './database.adapter.factory';
 import { type DatabaseConfig, resolveDatabaseConfig } from './database.config';
 
@@ -23,5 +28,13 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
 
   getStatus(): Promise<DatabaseStatus> {
     return this.adapter.getStatus();
+  }
+
+  findUserByEmail(email: string): Promise<DatabaseUser | null> {
+    return this.adapter.findUserByEmail(email);
+  }
+
+  createUser(user: CreateDatabaseUser): Promise<DatabaseUser> {
+    return this.adapter.createUser(user);
   }
 }
