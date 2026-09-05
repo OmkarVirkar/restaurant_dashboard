@@ -28,4 +28,36 @@ describe('resolveDatabaseConfig', () => {
       database: 'restaurant_db',
     });
   });
+
+  it('supports SQLite and MongoDB configuration', () => {
+    expect(
+      resolveDatabaseConfig({
+        DB_CLIENT: 'sqlite',
+        SQLITE_PATH: './data/restaurant.sqlite',
+      }),
+    ).toEqual({
+      client: 'sqlite',
+      sqlitePath: './data/restaurant.sqlite',
+    });
+
+    expect(
+      resolveDatabaseConfig({
+        DB_CLIENT: 'mongodb',
+        MONGODB_URI: 'mongodb://localhost:27017',
+        MONGODB_DATABASE: 'restaurant',
+      }),
+    ).toEqual({
+      client: 'mongodb',
+      mongodb: {
+        uri: 'mongodb://localhost:27017',
+        database: 'restaurant',
+      },
+    });
+  });
+
+  it('rejects unsupported database clients', () => {
+    expect(() => resolveDatabaseConfig({ DB_CLIENT: 'redis' })).toThrow(
+      'Unsupported DB_CLIENT "redis"',
+    );
+  });
 });

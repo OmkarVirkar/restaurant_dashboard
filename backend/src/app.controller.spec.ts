@@ -14,8 +14,11 @@ describe('AppController', () => {
         {
           provide: DatabaseService,
           useValue: {
-            getConfig: () => ({ client: 'pglite', pglitePath: './data/pglite.db' }),
-            getClient: () => ({ query: jest.fn() }),
+            getStatus: jest.fn().mockResolvedValue({
+              database: 'pglite',
+              status: 'connected',
+              details: { path: './data/pglite.db', usersCount: 0 },
+            }),
           },
         },
       ],
@@ -27,6 +30,15 @@ describe('AppController', () => {
   describe('root', () => {
     it('should return "Hello World!"', () => {
       expect(appController.getHello()).toBe('Hello World!');
+    });
+  });
+  describe('db-status', () => {
+    it('returns database-neutral adapter status', async () => {
+      await expect(appController.getDbStatus()).resolves.toEqual({
+        database: 'pglite',
+        status: 'connected',
+        details: { path: './data/pglite.db', usersCount: 0 },
+      });
     });
   });
 });

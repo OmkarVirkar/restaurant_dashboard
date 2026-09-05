@@ -24,6 +24,34 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Database configuration
+
+The backend uses a database adapter boundary, so application code does not depend on a vendor client. Select the adapter with `DB_CLIENT`:
+
+```bash
+# pglite (default)
+DB_CLIENT=pglite
+PG_LITE_PATH=./data/pglite.db
+
+# native SQLite
+DB_CLIENT=sqlite
+SQLITE_PATH=./data/restaurant.sqlite
+
+# PostgreSQL
+DB_CLIENT=postgres
+PG_HOST=localhost
+PG_PORT=5432
+PG_USER=postgres
+PG_PASSWORD=postgres
+PG_DATABASE=restaurant_db
+
+# MongoDB
+DB_CLIENT=mongodb
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DATABASE=restaurant
+```
+
+The `/db-status` endpoint reports the active adapter. New database vendors should implement `DatabaseAdapter` and add one selection case in `DatabaseService`.
 
 ## Project setup
 
