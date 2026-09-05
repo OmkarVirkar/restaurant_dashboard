@@ -2,8 +2,8 @@ import { translations, type Locale } from "@/assets/login-content";
 
 import { BrandMark } from "./brand-mark";
 import { LanguageSwitcher } from "./language-switcher";
+import { RequestAccessModal } from "./request-access-modal";
 import { FormField } from "./ui/form-field";
-import { SocialButton } from "./ui/social-button";
 
 type RestaurantLoginProps = {
   locale?: Locale;
@@ -98,23 +98,7 @@ export function RestaurantLogin({ locale = "en" }: RestaurantLoginProps) {
               </button>
             </form>
 
-            <div className="my-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-stone-200" />
-              <span className="text-xs uppercase tracking-[0.25em] text-stone-400">{t.divider}</span>
-              <div className="h-px flex-1 bg-stone-200" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <SocialButton label="Google" provider="google" />
-              <SocialButton label="Facebook" provider="facebook" />
-            </div>
-
-            <p className="mt-8 text-center text-sm text-stone-500">
-              {t.invite}{" "}
-              <a href="#" className="font-semibold text-amber-700 hover:text-amber-800">
-                {t.inviteAction}
-              </a>
-            </p>
+            <RequestAccessModal content={t} />
           </section>
         </div>
       </div>

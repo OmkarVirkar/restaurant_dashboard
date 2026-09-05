@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { RestaurantLogin } from "../components/restaurant-login";
+import { describe, expect, it } from "vitest";
 
 describe("Restaurant login UI", () => {
   it("renders the default English login screen", () => {
@@ -43,5 +44,27 @@ describe("Restaurant login UI", () => {
 
     expect(screen.getByRole("link", { name: "EN" })).toHaveAttribute("href", "/login");
     expect(screen.getByRole("link", { name: "हिं" })).toHaveAttribute("href", "/login?locale=hi");
+  });
+
+  it("opens, submits, and closes the request access popup", async () => {
+    const user = userEvent.setup();
+
+    render(<RestaurantLogin />);
+
+    await user.click(screen.getByRole("button", { name: /request admin invite/i }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Request admin access" })).toBeInTheDocument();
+
+    const dialog = screen.getByRole("dialog");
+    await user.type(within(dialog).getByLabelText("Full name"), "Chef Example");
+    await user.type(within(dialog).getByLabelText("Email address"), "chef@example.com");
+    await user.type(within(dialog).getByLabelText("Why do you need access?"), "I manage the evening service.");
+    await user.click(within(dialog).getByRole("button", { name: "Send request" }));
+
+    expect(screen.getByRole("heading", { name: "Request sent" })).toBeInTheDocument();
+    expect(screen.getByText("We will be in touch after reviewing your request.")).toBeInTheDocument();
+
+    await user.click(within(screen.getByRole("dialog")).getAllByRole("button", { name: "Close" })[1]);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

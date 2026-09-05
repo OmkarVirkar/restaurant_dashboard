@@ -1,14 +1,29 @@
-type IconName = "mail" | "lock";
+type IconName = "mail" | "lock" | "user";
 
 type FormFieldProps = {
   id: string;
-  type: "email" | "password";
+  type: "email" | "password" | "text";
   label: string;
   placeholder: string;
   icon: IconName;
+  required?: boolean;
 };
 
 function Icon({ name }: { name: IconName }) {
+  if (name === "user") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-stone-400" aria-hidden="true">
+        <path
+          d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 8a7 7 0 0 0-14 0"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
   if (name === "mail") {
     return (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-stone-400" aria-hidden="true">
@@ -36,7 +51,7 @@ function Icon({ name }: { name: IconName }) {
   );
 }
 
-export function FormField({ id, type, label, placeholder, icon }: FormFieldProps) {
+export function FormField({ id, type, label, placeholder, icon, required = false }: FormFieldProps) {
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-medium text-stone-700">
@@ -47,6 +62,7 @@ export function FormField({ id, type, label, placeholder, icon }: FormFieldProps
         <input
           id={id}
           type={type}
+          required={required}
           placeholder={placeholder}
           className="w-full border-0 bg-transparent text-base text-stone-900 outline-none placeholder:text-stone-400"
         />
