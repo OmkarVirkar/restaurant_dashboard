@@ -26,6 +26,7 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.4.7",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.23.1",
     "bcryptjs": "^3.0.3",

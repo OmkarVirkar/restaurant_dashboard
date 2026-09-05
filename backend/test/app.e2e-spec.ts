@@ -3,6 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
+import { configureSwagger } from './../src/swagger';
 
 type AuthResponseBody = {
   accessToken: string;
@@ -26,6 +27,7 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    configureSwagger(app);
     app.useGlobalPipes(
       new ValidationPipe({
         forbidNonWhitelisted: true,
@@ -56,6 +58,26 @@ describe('AppController (e2e)', () => {
           },
         });
       });
+  });
+
+  it('/docs-json (GET) exposes the OpenAPI document', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/docs-json')
+      .expect(200);
+    const document = response.body as {
+      paths: Record<string, unknown>;
+      components: { securitySchemes: Record<string, unknown> };
+    };
+
+    expect(Object.keys(document.paths)).toEqual(
+      expect.arrayContaining([
+        '/auth/register',
+        '/auth/login',
+        '/auth/refresh',
+        '/auth/me',
+      ]),
+    );
+    expect(document.components.securitySchemes).toHaveProperty('access-token');
   });
 
   it('registers, logs in, and protects the current-user endpoint', async () => {

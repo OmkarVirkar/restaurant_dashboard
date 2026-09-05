@@ -2,12 +2,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { config } from 'dotenv';
 import { AppModule } from './app.module';
+import { configureSwagger } from './swagger';
 
 config();
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  configureSwagger(app);
   app.useGlobalPipes(
     new ValidationPipe({
       forbidNonWhitelisted: true,
