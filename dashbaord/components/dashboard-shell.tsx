@@ -79,10 +79,9 @@ export function DashboardShell({ initialLocale }: DashboardShellProps) {
         </aside>
 
         <section className="min-w-0 flex-1 px-5 py-6 sm:px-8 lg:px-12">
-          <header className="flex items-center justify-between gap-4 border-b border-amber-200/70 pb-6">
+          <header className="flex items-center justify-between gap-4 border-b border-amber-700/70 pb-6">
             <div><p className="text-xs font-medium uppercase tracking-[0.25em] text-amber-700">{content.dashboard}</p><h1 className="mt-2 text-3xl font-semibold tracking-tight">{content[view]}</h1></div>
             <div className="flex items-center gap-2">
-              <LanguageSwitcher locale={locale} basePath="/dashboard" />
               <button type="button" aria-label={content.notifications} onClick={() => setIsNotificationsOpen(!isNotificationsOpen)} className="relative flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-600 shadow-sm hover:border-amber-300 hover:text-amber-700"><BellIcon /><span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-orange-500" /></button>
               <button type="button" aria-label={content.settings} onClick={() => setIsSettingsOpen(true)} className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-600 shadow-sm hover:border-amber-300 hover:text-amber-700"><GearIcon /></button>
               <button type="button" onClick={() => setIsLogoutOpen(true)} className="hidden items-center gap-3 rounded-full border border-stone-200 bg-white py-1.5 pl-1.5 pr-4 text-left shadow-sm sm:flex"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-600 text-xs font-bold text-white">{user.email[0].toUpperCase()}</span><span className="max-w-32 truncate text-xs font-semibold text-stone-700">{user.email}</span></button>
